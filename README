@@ -1,0 +1,6 @@
+Play module to speed up development with Play 1 framework
+
+This module:
+* removes enhancers 
+* removes Play own compilation of Java code 
+* simplifies classloading
