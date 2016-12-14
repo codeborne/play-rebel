@@ -1,4 +1,4 @@
-self: play-rebel -> play-rebel 0.1
+self: play-rebel -> rebel 0.1
 
 require:
     - play ]1.2,)
