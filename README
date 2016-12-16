@@ -1,6 +1,8 @@
-Play module to speed up development with Play 1 framework
+Play module intends to speed up development of large projects with Play 1 framework.
 
-This module:
-* removes enhancers 
-* removes Play own compilation of Java code 
-* simplifies classloading
+This is a work in progress.
+
+The aim is to:
+* disable enhancers
+* disable Play's own compilation of Java code
+* simplify classloading
