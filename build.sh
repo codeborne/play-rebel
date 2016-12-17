@@ -7,8 +7,12 @@ TARGET=$DESTINATION/$MODULE-$VERSION.zip
 
 rm -fr dist
 rm -fr lib
-mkdir lib
+
 play dependencies --sync || exit $?
+rm -fr .lib || exit $?
+mkdir .lib || exit $?
+mv lib/* .lib/ || exit $?
+
 play build-module || exit $?
 
 if [ -d $DESTINATION ]; then
