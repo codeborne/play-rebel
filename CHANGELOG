@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.2  (2016-12-17)
+
+ * created play.mvc.Redirector as a replacement for redirects in ControllerEnhancer
+
 ### 0.1  (2016-12-14)
 
  * created play.db.jpa.JPARepository as a replacement for JPAEnhancer
