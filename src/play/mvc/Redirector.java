@@ -127,7 +127,7 @@ public class Redirector {
 
   private static final Annotation[] NO_ANNOTATIONS = new Annotation[0];
   
-  private static Map<String, Object> toMap(List<Parameter> parameters) {
+  public static Map<String, Object> toMap(List<Parameter> parameters) {
     Map<String, Object> newArgs = new HashMap<>(parameters.size());
     for (Parameter parameter : parameters) {
       Unbinder.unBind(newArgs, parameter.value, parameter.name, NO_ANNOTATIONS);
