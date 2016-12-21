@@ -3,6 +3,7 @@
 ### 0.2  (2016-12-17)
 
  * created play.mvc.Redirector as a replacement for redirects in ControllerEnhancer
+ * created play.mvc.Renderer as a replacement for methods Controller.render*
 
 ### 0.1  (2016-12-14)
 
