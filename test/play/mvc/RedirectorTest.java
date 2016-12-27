@@ -22,7 +22,7 @@ public class RedirectorTest {
 
   @Before
   public void setUp() {
-    Play.configuration = new Properties();
+    Play.configuration.clear();
     redirector = spy(new Redirector());
     doNothing().when(redirector).toUrl(anyString());
   }
