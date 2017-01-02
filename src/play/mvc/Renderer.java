@@ -32,8 +32,8 @@ public class Renderer {
     renderTemplate(templateName, args);
   }
 
-  public Parameters with(String name, Object value) {
-    return new Parameters(name, value);
+  public Builder with(String name, Object value) {
+    return new Builder(name, value);
   }
 
   public void text(String text) {
@@ -71,32 +71,32 @@ public class Renderer {
     return t.render(templateBinding.data);
   }
 
-  public class Parameters {
-    private final Map<String, Object> parameters = new HashMap<>();
+  public class Builder {
+    private final Map<String, Object> arguments = new HashMap<>();
 
-    private Parameters(String name, Object value) {
+    private Builder(String name, Object value) {
       with(name, value);
     }
 
-    public final Parameters with(String name, Object value) {
-      parameters.put(name, value);
+    public final Builder with(String name, Object value) {
+      arguments.put(name, value);
       return this;
     }
 
     public void template() {
-      renderTemplate(getTemplateName(), parameters);
+      renderTemplate(getTemplateName(), arguments);
     }
 
     public void template(String templateName) {
-      renderTemplate(templateName, parameters);
+      renderTemplate(templateName, arguments);
     }
     
     public void json() {
-      renderJSON(gsonWithTimeFormat.toJson(parameters));
+      renderJSON(gsonWithTimeFormat.toJson(arguments));
     }
 
     public void json(Gson customGson) {
-      renderJSON(customGson.toJson(parameters));
+      renderJSON(customGson.toJson(arguments));
     }
   }
 

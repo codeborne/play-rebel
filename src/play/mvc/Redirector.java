@@ -117,8 +117,8 @@ public class Redirector {
     }
   }
   
-  public Parameters with(String name, Object value) {
-    return new Parameters(name, value);
+  public Builder with(String name, Object value) {
+    return new Builder(name, value);
   }
 
   public static Parameter param(String name, Object value) {
@@ -160,14 +160,14 @@ public class Redirector {
     }
   }
 
-  public class Parameters {
+  public class Builder {
     private final Map<String, Object> parameters = new HashMap<>();
 
-    public Parameters(String name, Object value) {
+    public Builder(String name, Object value) {
       with(name, value);
     }
 
-    public final Parameters with(String name, Object value) {
+    public final Builder with(String name, Object value) {
       Unbinder.unBind(parameters, value, name, NO_ANNOTATIONS);
       return this;
     }

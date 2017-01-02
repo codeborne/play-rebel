@@ -3,6 +3,8 @@
 ### 0.3  (2017-01-02)
 
 * make method renderTemplate(String, Map) public - it's useful for mocking out templates in unit-tests
+* rename Redirect.Parameters -> Redirect.Builder
+* rename Render.Parameters -> Render.Builder
 
 ### 0.2  (2016-12-17)
 
