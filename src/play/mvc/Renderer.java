@@ -100,7 +100,7 @@ public class Renderer {
     }
   }
 
-  private void renderTemplate(String templateName, Map<String, Object> args) {
+  public void renderTemplate(String templateName, Map<String, Object> args) {
     try {
       Method method = Controller.class.getDeclaredMethod("renderTemplate", String.class, Map.class);
       method.setAccessible(true);

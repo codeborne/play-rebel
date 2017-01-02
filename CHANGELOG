@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.3  (2017-01-02)
+
+* make method renderTemplate(String, Map) public - it's useful for mocking out templates in unit-tests
+
 ### 0.2  (2016-12-17)
 
  * created play.mvc.Redirector as a replacement for redirects in ControllerEnhancer
