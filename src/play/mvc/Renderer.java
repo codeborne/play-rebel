@@ -61,7 +61,7 @@ public class Renderer {
 
   public String templateAsString(String templateName) {
     Scope.RenderArgs templateBinding = Scope.RenderArgs.current();
-    templateBinding.data.putAll(renderArgs.data);
+    templateBinding.data.putAll(Scope.RenderArgs.current().data);
     templateBinding.put("session", Scope.Session.current());
     templateBinding.put("request", Http.Request.current());
     templateBinding.put("flash", Scope.Flash.current());
