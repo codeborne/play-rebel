@@ -3,7 +3,7 @@ package play.mvc;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import play.data.validation.Validation;
-import play.templates.BaseTemplate;
+import play.templates.Template;
 import play.templates.TemplateLoader;
 
 import javax.inject.Singleton;
@@ -65,7 +65,7 @@ public class Renderer {
     templateBinding.put("flash", Scope.Flash.current());
     templateBinding.put("params", Scope.Params.current());
     templateBinding.put("errors", Validation.errors());
-    BaseTemplate t = (BaseTemplate) TemplateLoader.load(templateName);
+    Template t = TemplateLoader.load(templateName);
     return t.render(templateBinding.data);
   }
 
