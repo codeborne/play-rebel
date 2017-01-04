@@ -8,8 +8,6 @@ import play.templates.TemplateLoader;
 
 import javax.inject.Singleton;
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +19,7 @@ public class Renderer {
   private static final Gson gsonWithTimeFormat = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
   
   public void template() {
-    renderTemplate(getTemplateName(), emptyMap());
+    renderTemplate(Controller.template(), emptyMap());
   }
   
   public void template(String templateName) {
@@ -84,7 +82,7 @@ public class Renderer {
     }
 
     public void template() {
-      renderTemplate(getTemplateName(), arguments);
+      renderTemplate(Controller.template(), arguments);
     }
 
     public void template(String templateName) {
@@ -101,28 +99,6 @@ public class Renderer {
   }
 
   public void renderTemplate(String templateName, Map<String, Object> args) {
-    try {
-      Method method = Controller.class.getDeclaredMethod("renderTemplate", String.class, Map.class);
-      method.setAccessible(true);
-      method.invoke(null, templateName, args);
-    }
-    catch (NoSuchMethodException | IllegalAccessException e) {
-      throw new RuntimeException(e);
-    }
-    catch (InvocationTargetException e) {
-      throw e.getTargetException() instanceof RuntimeException ? (RuntimeException) e.getTargetException() :
-          new RuntimeException(e);
-    }
-  }
-
-  private String getTemplateName() {
-    try {
-      Method method = Controller.class.getDeclaredMethod("template");
-      method.setAccessible(true);
-      return (String) method.invoke(null);
-    }
-    catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+    Controller.renderTemplate(templateName, args);
   }
 }
