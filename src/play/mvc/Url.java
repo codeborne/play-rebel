@@ -119,5 +119,20 @@ public class Url {
   @Override public String toString() {
     return url;
   }
+
+  @Override public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Url url1 = (Url) o;
+
+    if (!url.equals(url1.url)) return false;
+
+    return true;
+  }
+
+  @Override public int hashCode() {
+    return url.hashCode();
+  }
 }
 

@@ -132,5 +132,25 @@ public class UrlTest {
     String actual = new Url("/url", "name", "value", "name2", 1, "name3", true, "name4", 4L, "date", date).toString();
 
     assertThat(actual).isEqualTo("/url?name=value&name2=1&name3=true&name4=4&date=01.01.2000");
-  }  
+  }
+
+  @Test
+  public void equals() {
+    assertThat(new Url("/a/b")).isEqualTo(new Url("/a/b"));
+  }
+
+  @Test
+  public void notEquals() {
+    assertThat(new Url("/a/b")).isNotEqualTo(new Url("/a/c"));
+  }
+
+  @Test
+  public void hash() {
+    assertThat(new Url("/a/b").hashCode()).isEqualTo(new Url("/a/b").hashCode());
+  }
+
+  @Test
+  public void differentHash() {
+    assertThat(new Url("/a/b").hashCode()).isNotEqualTo(new Url("/a/c").hashCode());
+  }
 }
