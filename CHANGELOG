@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.5  (2017-01-13)
+
+* added Result subclasses: RenderView and RedirectToAction
+
 ### 0.4  (2017-01-03)
 
 * fix method Renderer.templateAsString(): don't use Controller.renderArgs that is null in prod mode

@@ -2,6 +2,7 @@ package play.mvc;
 
 import play.data.binding.Unbinder;
 import play.mvc.results.Redirect;
+import play.rebel.RedirectToAction;
 
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
@@ -28,12 +29,8 @@ public class Redirector {
     if ((action.startsWith("/") || action.startsWith("http://") || action.startsWith("https://")) && parameters.isEmpty()) {
       toUrl(action);
     }
-    else if (action.startsWith("@")) {
-      action = action.substring(1);
-      if (!action.contains(".")) action = Http.Request.current().controller + "." + action;
-    }
-    Router.ActionDefinition actionDefinition = parameters.isEmpty() ? Router.reverse(action) : Router.reverse(action, parameters);
-    throw new Redirect(actionDefinition.toString(), false);
+    
+    throw new RedirectToAction(action, parameters);
   }
 
   public void toUrl(String url) {
