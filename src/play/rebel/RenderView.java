@@ -57,7 +57,7 @@ public class RenderView extends Result {
   }
 
   private String template(String templateName) throws Exception {
-    Method method = Controller.class.getMethod("template", String.class);
+    Method method = Controller.class.getDeclaredMethod("template", String.class);
     method.setAccessible(true);
     return (String) method.invoke(null, templateName);
   }
