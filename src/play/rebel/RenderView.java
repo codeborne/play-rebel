@@ -1,9 +1,11 @@
 package play.rebel;
 
+import play.data.validation.Validation;
 import play.exceptions.UnexpectedException;
 import play.libs.MimeTypes;
 import play.mvc.Controller;
 import play.mvc.Http;
+import play.mvc.Scope;
 import play.mvc.results.Result;
 import play.templates.Template;
 import play.templates.TemplateLoader;
@@ -30,6 +32,7 @@ public class RenderView extends Result {
 
   public RenderView(String templateName, Map<String, Object> arguments) {
     this.templateName = templateName;
+    this.arguments.putAll(Scope.RenderArgs.current().data);
     this.arguments.putAll(arguments);
   }
 
@@ -45,9 +48,18 @@ public class RenderView extends Result {
   private void renderView(Http.Response response) throws Exception {
     long start = System.currentTimeMillis();
     Template template = resolveTemplate();
-    this.content = template.render(arguments);
+
+    Map<String, Object> templateBinding = new HashMap<>();
+    templateBinding.putAll(arguments);
+    templateBinding.put("session", Scope.Session.current());
+    templateBinding.put("request", Http.Request.current());
+    templateBinding.put("flash", Scope.Flash.current());
+    templateBinding.put("params", Scope.Params.current());
+    templateBinding.put("errors", Validation.errors());
+
+    this.content = template.render(templateBinding);
     this.renderTime = System.currentTimeMillis() - start;
-    String contentType = MimeTypes.getContentType(templateName, "text/plain");
+    String contentType = MimeTypes.getContentType(template.name, "text/plain");
     response.out.write(content.getBytes(getEncoding()));
     setContentTypeIfNotSet(response, contentType);
   }
