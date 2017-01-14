@@ -34,6 +34,12 @@ public class RenderView extends Result {
     this.templateName = templateName;
     this.arguments.putAll(Scope.RenderArgs.current().data);
     this.arguments.putAll(arguments);
+    generateAuthenticityToken();
+  }
+
+  private void generateAuthenticityToken() {
+    // it's important to generate authenticityToken in controller, not in `apply` method
+    Scope.Session.current().getAuthenticityToken();
   }
 
   @Override
