@@ -37,3 +37,7 @@ The aim is to:
   redirect.with("userId", 42).with("password", "yip").to("SomeController.someAction");
 ```
 
+6. Replace every call to `Validation.valid(Object)` with a call to `Validation.valid(String, Object)`
+7. Don't use methods:
+ * `play.db.jpa.GenericModel.validateAndSave()`
+ * `play.db.jpa.GenericModel.validateAndCreate()`
