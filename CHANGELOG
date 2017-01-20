@@ -4,7 +4,8 @@
 
 * publish jar instead of zip: it's actually not a full-blown play module, just a set of java classes 
   (which we want to use in other play modules)
-* add class RebelController to extend instead of play.mvc.Controller
+* added class RebelController to extend instead of play.mvc.Controller
+* added default constructor RenderView()
 
 ### 0.5  (2017-01-13)
 

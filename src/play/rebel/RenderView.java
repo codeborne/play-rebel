@@ -3,18 +3,18 @@ package play.rebel;
 import play.data.validation.Validation;
 import play.exceptions.UnexpectedException;
 import play.libs.MimeTypes;
-import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Scope;
 import play.mvc.results.Result;
 import play.templates.Template;
 import play.templates.TemplateLoader;
 
-import java.lang.reflect.Method;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Collections.emptyMap;
+import static play.rebel.Bridge.template;
 
 /**
  * 200 OK with a template rendering
@@ -26,6 +26,10 @@ public class RenderView extends Result {
   private String content;
   private long renderTime;
 
+  public RenderView() {
+    this(template());
+  }
+  
   public RenderView(String templateName) {
     this(templateName, emptyMap());
   }
@@ -51,7 +55,7 @@ public class RenderView extends Result {
     }
   }
 
-  private void renderView(Http.Response response) throws Exception {
+  private void renderView(Http.Response response) throws IOException {
     long start = System.currentTimeMillis();
     Template template = resolveTemplate();
 
@@ -70,16 +74,10 @@ public class RenderView extends Result {
     setContentTypeIfNotSet(response, contentType);
   }
 
-  private Template resolveTemplate() throws Exception {
+  private Template resolveTemplate() {
     return TemplateLoader.load(template(templateName));
   }
-
-  private String template(String templateName) throws Exception {
-    Method method = Controller.class.getDeclaredMethod("template", String.class);
-    method.setAccessible(true);
-    return (String) method.invoke(null, templateName);
-  }
-
+  
   public String getName() {
     return templateName;
   }
