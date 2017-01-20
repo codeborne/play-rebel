@@ -2,8 +2,9 @@
 ORGANIZATION="play-rebel"
 MODULE="rebel"
 VERSION=`grep self conf/dependencies.yml | sed "s/.*$MODULE //"`
-DESTINATION=/var/www/repo/$ORGANIZATION
-TARGET=$DESTINATION/$MODULE-$VERSION.zip
+
+REPO=/var/www/repo/$ORGANIZATION/$MODULE
+TARGET=$REPO/$MODULE-$VERSION.jar
 
 rm -fr dist
 rm -fr lib
@@ -15,11 +16,24 @@ mv lib/* .lib/ || exit $?
 
 play build-module || exit $?
 
-if [ -d $DESTINATION ]; then
-  if [ -e $TARGET ]; then
-      echo "Not publishing, $MODULE-$VERSION already exists"
-  else
-      cp dist/*.zip $TARGET || exit $?
-      echo "Package is available at https://repo.codeborne.com/$ORGANIZATION/$MODULE-$VERSION.zip"
-  fi
+if [[ "$VERSION" == *SNAPSHOT ]]
+then
+  echo "Skip publishing $TARGET (nobody needs snapshot)"
+elif [ -e $TARGET ]; then
+  echo "Not publishing ($MODULE-$VERSION already exists)"
+elif [ -e $REPO ]; then
+
+  echo ""
+  echo ""
+  echo ""
+  echo " ********************************************************* "
+  cp lib/play-rebel.jar $TARGET || exit $?
+  echo "Published $TARGET"
+  echo " ********************************************************* "
+  echo ""
+  echo ""
+  echo ""
+
+else
+  echo "Not publishing ($REPO does not exists)"
 fi

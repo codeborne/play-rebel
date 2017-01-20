@@ -1,5 +1,10 @@
 ## Changelog
 
+### 0.6  (2017-01-21)
+
+* publish jar instead of zip: it's actually not a full-blown play module, just a set of java classes 
+  (which we want to use in other play modules)
+
 ### 0.5  (2017-01-13)
 
 * added Result subclasses: RenderView and RedirectToAction
