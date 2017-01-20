@@ -11,6 +11,13 @@ import java.lang.reflect.Method;
 
 import static play.rebel.Bridge.setControllerField;
 
+/**
+ * NB! It's important to include this plugin to `play.plugins` AFTER guice plugin (that has priority 1000):
+ * 
+ * ```
+ * 1001:play.rebel.PlayRebelPlugin
+ * ```
+ */
 public class PlayRebelPlugin extends PlayPlugin {
   @Override public void beforeActionInvocation(Method actionMethod) {
     setRebelControllerFields(Scope.Params.current(), Http.Request.current(), Http.Response.current(),
