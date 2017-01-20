@@ -3,7 +3,7 @@ ORGANIZATION="play-rebel"
 MODULE="rebel"
 VERSION=`grep self conf/dependencies.yml | sed "s/.*$MODULE //"`
 
-REPO=/var/www/repo/$ORGANIZATION/$MODULE
+REPO=/var/www/repo/$ORGANIZATION
 TARGET=$REPO/$MODULE-$VERSION.jar
 
 rm -fr dist
