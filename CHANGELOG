@@ -6,6 +6,8 @@
   (which we want to use in other play modules)
 * added class RebelController to extend instead of play.mvc.Controller
 * added default constructor RenderView()
+* added RebelClassloader (that does not compiler neither enhance java classes)
+* added PlayRebelAntiEnhancerPlugin that initialized RebelClassloader at the right moments
 
 ### 0.5  (2017-01-13)
 
