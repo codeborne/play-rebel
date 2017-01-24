@@ -1,4 +1,4 @@
-self: play-rebel -> rebel 0.6
+self: play-rebel -> rebel 0.6.1
 
 require:
     - play ]1.2,)

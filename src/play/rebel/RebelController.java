@@ -16,6 +16,7 @@ import play.mvc.results.Error;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -105,6 +106,14 @@ public class RebelController extends Controller implements ControllerSupport {
     }
     catch (RuntimeException e) {
       throw e;
+    }
+    catch (InvocationTargetException e) {
+      if (e.getTargetException() instanceof RuntimeException) {
+        throw (RuntimeException) e.getTargetException();
+      }
+      else {
+        throw new UnexpectedException(e.getTargetException());
+      }
     }
     catch (Exception e) {
       throw new UnexpectedException(e);
