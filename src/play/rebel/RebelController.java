@@ -261,23 +261,6 @@ public class RebelController extends Controller implements ControllerSupport {
     throw new BadRequest("Bad request");
   }
 
-  // TODO implement "await" in play-rebel
-  protected static void await(int millis) {
-    Http.Request.current().isNew = false;
-    // verifyContinuationsEnhancement();
-    // storeOrRestoreDataStateForContinuations(null);
-    Continuation.suspend(millis);
-  }
-
-  protected static <T> T await(Future<T> future) {
-    try {
-      return future.get();
-    }
-    catch (ExecutionException | InterruptedException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
   protected static <T extends Annotation> T getActionAnnotation(Class<T> annotationClass) {
     return request().invokedMethod.getAnnotation(annotationClass);
   }
