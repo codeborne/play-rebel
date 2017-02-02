@@ -15,7 +15,6 @@ The aim is to:
 
 ```
 0:play.rebel.PlayRebelAntiEnhancerPlugin
-1001:play.rebel.PlayRebelPlugin
 2000:play.rebel.migration.LegacyRedirectsDetector
 ```
 

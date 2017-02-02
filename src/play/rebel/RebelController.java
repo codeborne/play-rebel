@@ -1,10 +1,8 @@
 package play.rebel;
 
 import com.thoughtworks.xstream.XStream;
-import org.apache.commons.javaflow.Continuation;
 import org.w3c.dom.Document;
 import play.Logger;
-import play.classloading.enhancers.ControllersEnhancer.ControllerSupport;
 import play.data.validation.Validation;
 import play.exceptions.UnexpectedException;
 import play.mvc.Controller;
@@ -19,8 +17,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import static java.util.Collections.emptyMap;
 
@@ -31,27 +27,27 @@ import static java.util.Collections.emptyMap;
  * In future, RebelController will not extend play.mvc.Controller
  * So that controllers cannot use static fields `renderArgs`, `request`, `session` etc.
  */
-public class RebelController extends Controller implements ControllerSupport {
+public class RebelController extends Controller {
 
-  protected Http.Request request;
+  protected Http.Request request = request();
 
   protected static Http.Request request() {
     return Http.Request.current();
   }
   
-  protected Http.Response response;
+  protected Http.Response response = response();
   
   protected static Http.Response response() {
     return Http.Response.current();
   }
 
-  protected Scope.Session session;
+  protected Scope.Session session = session();
   
   protected static Scope.Session session() {
     return Scope.Session.current();
   }
 
-  protected Scope.Flash flash;
+  protected Scope.Flash flash = flash();
   
   protected static Scope.Flash flash() {
     return Scope.Flash.current();
@@ -61,21 +57,21 @@ public class RebelController extends Controller implements ControllerSupport {
     Scope.Flash.current().put(key, value);
   }
 
-  protected Scope.Params params;
+  protected Scope.Params params = params();
   
   protected static Scope.Params params() {
     return Scope.Params.current();
   }
   
-  protected Scope.RenderArgs renderArgs;
+  protected Scope.RenderArgs renderArgs = renderArgs();
   
   protected static Scope.RenderArgs renderArgs() {
     return Scope.RenderArgs.current();
   }
 
-  protected Scope.RouteArgs routeArgs;
+  protected Scope.RouteArgs routeArgs = Scope.RouteArgs.current();
   
-  protected Validation validation;
+  protected Validation validation = Validation.current();
 
   protected static void checkAuthenticity() {
     if (Scope.Params.current().get("authenticityToken") == null
