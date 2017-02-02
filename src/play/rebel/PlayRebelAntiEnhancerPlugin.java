@@ -33,24 +33,29 @@ public class PlayRebelAntiEnhancerPlugin extends PlayPlugin {
   }
 
   private boolean enabled() {
-    return Play.mode.isDev();
+    return Play.mode.isDev() && !Play.usePrecompiled && !Play.forceProd && System.getProperty("precompile") == null;
   }
 
-  static void resetClassloaders(ApplicationClassloader classloader) {
+  private void resetClassloaders(ApplicationClassloader classloader) {
     Thread thread = Thread.currentThread();
     if (thread.getContextClassLoader() instanceof ApplicationClassloader)
       thread.setContextClassLoader(classloader);
   }
 
   @Override public final boolean compileSources() {
-    List<Class<?>> allClasses = JavaClasses.allClassesInProject();
+    if (enabled()) {
+      List<Class<?>> allClasses = JavaClasses.allClassesInProject();
 
-    for (Class<?> javaClass : allClasses) {
-      ApplicationClasses.ApplicationClass appClass = new ApplicationClasses.ApplicationClass(javaClass.getName());
-      appClass.javaClass = javaClass;
-      Play.classes.add(appClass);
+      for (Class<?> javaClass : allClasses) {
+        ApplicationClasses.ApplicationClass appClass = new ApplicationClasses.ApplicationClass(javaClass.getName());
+        appClass.javaClass = javaClass;
+        Play.classes.add(appClass);
+      }
+
+      return true;
     }
-
-    return true;
+    else {
+      return false;
+    }
   }
 }
