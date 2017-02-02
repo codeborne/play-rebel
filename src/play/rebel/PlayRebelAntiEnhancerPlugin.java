@@ -1,5 +1,6 @@
 package play.rebel;
 
+import play.Logger;
 import play.Play;
 import play.PlayPlugin;
 import play.classloading.ApplicationClasses;
@@ -10,13 +11,29 @@ import java.util.List;
 
 public class PlayRebelAntiEnhancerPlugin extends PlayPlugin {
   public PlayRebelAntiEnhancerPlugin() {
-    Play.classloader = new RebelClassloader();
-    compileSources();
+    if (enabled()) {
+      Logger.info(" *** REBEL: disable enhancers *** ");
+      Play.classloader = new RebelClassloader();
+      compileSources();
+    }
+    else {
+      Logger.info(" *** REBEL: still sleeping *** ");
+    }
   }
 
   @Override public void onConfigurationRead() {
-    Play.classloader = new RebelClassloader();
-    resetClassloaders(Play.classloader);
+    if (enabled()) {
+      Logger.info(" *** REBEL: disable enhancers *** ");
+      Play.classloader = new RebelClassloader();
+      resetClassloaders(Play.classloader);
+    }
+    else {
+      Logger.info(" *** REBEL: still sleeping *** ");
+    }
+  }
+
+  private boolean enabled() {
+    return Play.mode.isDev();
   }
 
   static void resetClassloaders(ApplicationClassloader classloader) {
