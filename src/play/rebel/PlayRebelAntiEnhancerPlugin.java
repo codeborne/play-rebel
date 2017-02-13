@@ -47,18 +47,21 @@ public class PlayRebelAntiEnhancerPlugin extends CorePlugin {
 
   @Override public final boolean compileSources() {
     if (enabled()) {
-      List<Class<?>> allClasses = JavaClasses.allClassesInProject();
-
-      for (Class<?> javaClass : allClasses) {
-        ApplicationClass appClass = new ApplicationClass(javaClass.getName());
-        appClass.javaClass = javaClass;
-        Play.classes.add(appClass);
-      }
-
+      initPlayClasses();
       return true;
     }
     else {
       return false;
+    }
+  }
+
+  private void initPlayClasses() {
+    List<Class<?>> allClasses = JavaClasses.allClassesInProject();
+
+    for (Class<?> javaClass : allClasses) {
+      ApplicationClass appClass = new ApplicationClass(javaClass.getName());
+      appClass.javaClass = javaClass;
+      Play.classes.add(appClass);
     }
   }
 
