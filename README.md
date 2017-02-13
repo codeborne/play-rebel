@@ -7,9 +7,9 @@ The aim is to:
 * disable Play's own compilation of Java code
 * simplify classloading
 
-=== How to migrate from "classic" Play1 application to play-rebel
+## How to migrate from "classic" Play1 application to play-rebel
 
-==== Find all "classic" redirects
+### Find all "classic" redirects
 
 1. Add this line to your `play.plugins`:
 
