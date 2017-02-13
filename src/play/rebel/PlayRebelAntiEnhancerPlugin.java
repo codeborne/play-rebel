@@ -12,12 +12,12 @@ import java.util.List;
 public class PlayRebelAntiEnhancerPlugin extends PlayPlugin {
   public PlayRebelAntiEnhancerPlugin() {
     if (enabled()) {
-      Logger.info(" *** REBEL: disable enhancers *** ");
+      Logger.info(" *** REBEL: Play compilation and enhancers disabled *** ");
       Play.classloader = new RebelClassloader();
       compileSources();
     }
     else {
-      Logger.info(" *** REBEL: still sleeping *** ");
+      Logger.info(" *** REBEL: Play compilation and enhancers are active *** ");
     }
   }
 
