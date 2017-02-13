@@ -25,7 +25,7 @@ public class PlayRebelAntiEnhancerPlugin extends PlayPlugin {
     if (enabled()) {
       Logger.info(" *** REBEL: Play compilation and enhancers disabled *** ");
       Play.classloader = new RebelClassloader();
-      resetClassloaders(Play.classloader);
+      resetContextClassloader(Play.classloader);
     }
     else {
       Logger.info(" *** REBEL: Play compilation and enhancers are active *** ");
@@ -36,7 +36,7 @@ public class PlayRebelAntiEnhancerPlugin extends PlayPlugin {
     return Play.mode.isDev() && !Play.usePrecompiled && !Play.forceProd && System.getProperty("precompile") == null;
   }
 
-  private void resetClassloaders(ApplicationClassloader classloader) {
+  private void resetContextClassloader(ApplicationClassloader classloader) {
     Thread thread = Thread.currentThread();
     if (thread.getContextClassLoader() instanceof ApplicationClassloader)
       thread.setContextClassLoader(classloader);
