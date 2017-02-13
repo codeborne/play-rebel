@@ -10,13 +10,15 @@ import play.classloading.RebelClassloader;
 import java.util.List;
 
 public class PlayRebelAntiEnhancerPlugin extends CorePlugin {
+  RebelClassloader rebelClassloader = new RebelClassloader();
+
   public PlayRebelAntiEnhancerPlugin() {
     Play.pluginCollection.disablePlugin(CorePlugin.class);
     Logger.info("REBEL: Play enhancers disabled");
 
     if (enabled()) {
       Logger.info("REBEL: Play compilation also disabled");
-      Play.classloader = new RebelClassloader();
+      Play.classloader = rebelClassloader;
     }
     else {
       Logger.info("REBEL: Play compilation enabled");
@@ -26,8 +28,8 @@ public class PlayRebelAntiEnhancerPlugin extends CorePlugin {
   @Override public void onConfigurationRead() {
     if (enabled()) {
       Logger.info("REBEL: Play compilation disabled");
-      Play.classloader = new RebelClassloader();
-      resetContextClassloader(Play.classloader);
+      Play.classloader = rebelClassloader;
+      resetContextClassloader(rebelClassloader);
     }
     else {
       Logger.info("REBEL: Play compilation enabled");
