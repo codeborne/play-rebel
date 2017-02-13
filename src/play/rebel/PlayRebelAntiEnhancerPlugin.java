@@ -17,7 +17,6 @@ public class PlayRebelAntiEnhancerPlugin extends CorePlugin {
     if (enabled()) {
       Logger.info("REBEL: Play compilation also disabled");
       Play.classloader = new RebelClassloader();
-      compileSources();
     }
     else {
       Logger.info("REBEL: Play compilation enabled");
