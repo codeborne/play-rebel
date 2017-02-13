@@ -4,6 +4,7 @@ import play.Logger;
 import play.Play;
 import play.PlayPlugin;
 import play.classloading.ApplicationClasses;
+import play.classloading.ApplicationClasses.ApplicationClass;
 import play.classloading.ApplicationClassloader;
 import play.classloading.RebelClassloader;
 
@@ -47,7 +48,7 @@ public class PlayRebelAntiEnhancerPlugin extends PlayPlugin {
       List<Class<?>> allClasses = JavaClasses.allClassesInProject();
 
       for (Class<?> javaClass : allClasses) {
-        ApplicationClasses.ApplicationClass appClass = new ApplicationClasses.ApplicationClass(javaClass.getName());
+        ApplicationClass appClass = new ApplicationClass(javaClass.getName());
         appClass.javaClass = javaClass;
         Play.classes.add(appClass);
       }
