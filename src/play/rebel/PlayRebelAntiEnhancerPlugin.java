@@ -1,35 +1,37 @@
 package play.rebel;
 
+import play.CorePlugin;
 import play.Logger;
 import play.Play;
-import play.PlayPlugin;
-import play.classloading.ApplicationClasses;
 import play.classloading.ApplicationClasses.ApplicationClass;
 import play.classloading.ApplicationClassloader;
 import play.classloading.RebelClassloader;
 
 import java.util.List;
 
-public class PlayRebelAntiEnhancerPlugin extends PlayPlugin {
+public class PlayRebelAntiEnhancerPlugin extends CorePlugin {
   public PlayRebelAntiEnhancerPlugin() {
+    Play.pluginCollection.disablePlugin(CorePlugin.class);
+    Logger.info("REBEL: Play enhancers disabled");
+
     if (enabled()) {
-      Logger.info(" *** REBEL: Play compilation and enhancers disabled *** ");
+      Logger.info("REBEL: Play compilation also disabled");
       Play.classloader = new RebelClassloader();
       compileSources();
     }
     else {
-      Logger.info(" *** REBEL: Play compilation and enhancers are active *** ");
+      Logger.info("REBEL: Play compilation enabled");
     }
   }
 
   @Override public void onConfigurationRead() {
     if (enabled()) {
-      Logger.info(" *** REBEL: Play compilation and enhancers disabled *** ");
+      Logger.info("REBEL: Play compilation disabled");
       Play.classloader = new RebelClassloader();
       resetContextClassloader(Play.classloader);
     }
     else {
-      Logger.info(" *** REBEL: Play compilation and enhancers are active *** ");
+      Logger.info("REBEL: Play compilation enabled");
     }
   }
 
@@ -58,5 +60,9 @@ public class PlayRebelAntiEnhancerPlugin extends PlayPlugin {
     else {
       return false;
     }
+  }
+
+  @Override public void enhance(ApplicationClass applicationClass) throws Exception {
+    // skip CorePlugin's enhancement
   }
 }

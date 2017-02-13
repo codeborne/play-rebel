@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.7 (2017-02-13)
+
+* disable play enhancers also when precompiling
+
 ### 0.6.5  (2017-02-02)
 
 * (temporarily) enable play-rebel only in dev mode 
