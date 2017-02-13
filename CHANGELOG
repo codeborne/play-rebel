@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.7.1 (2017-02-13)
+
+* make startup even faster by disabling Play's java class hash calculation
+
 ### 0.7 (2017-02-13)
 
 * disable play enhancers also when precompiling
