@@ -23,12 +23,12 @@ public class PlayRebelAntiEnhancerPlugin extends PlayPlugin {
 
   @Override public void onConfigurationRead() {
     if (enabled()) {
-      Logger.info(" *** REBEL: disable enhancers *** ");
+      Logger.info(" *** REBEL: Play compilation and enhancers disabled *** ");
       Play.classloader = new RebelClassloader();
       resetClassloaders(Play.classloader);
     }
     else {
-      Logger.info(" *** REBEL: still sleeping *** ");
+      Logger.info(" *** REBEL: Play compilation and enhancers are active *** ");
     }
   }
 
