@@ -7,6 +7,7 @@ import play.data.validation.Validation;
 import play.exceptions.UnexpectedException;
 import play.mvc.Controller;
 import play.mvc.Http;
+import play.mvc.PlayController;
 import play.mvc.Scope;
 import play.mvc.results.*;
 import play.mvc.results.Error;
@@ -22,12 +23,8 @@ import static java.util.Collections.emptyMap;
 
 /**
  * A superclass for all controllers that are intended to work without play enhancers.
- * 
- * TODO
- * In future, RebelController will not extend play.mvc.Controller
- * So that controllers cannot use static fields `renderArgs`, `request`, `session` etc.
  */
-public class RebelController extends Controller {
+public class RebelController implements PlayController {
 
   protected Http.Request request = request();
 
@@ -87,12 +84,10 @@ public class RebelController extends Controller {
   protected static void render(String templateName) {
     renderTemplate(templateName, emptyMap());
   }
-
-/*
+  
   protected void renderTemplate(Map<String, Object> args) {
     renderTemplate(template(), args);
   }
-*/
   
   protected static void renderTemplate(String templateName, Map<String, Object> args) {
     try {
@@ -115,8 +110,7 @@ public class RebelController extends Controller {
       throw new UnexpectedException(e);
     }
   }
-
-/*
+  
   protected String template() {
     return Bridge.template();
   }
@@ -124,7 +118,6 @@ public class RebelController extends Controller {
   protected String template(String templateName) {
     return Bridge.template(templateName);
   }
-*/
   
   protected static void redirect(String url) {
     throw new Redirect(url);
@@ -264,14 +257,4 @@ public class RebelController extends Controller {
   protected static <T extends Annotation> T getControllerInheritedAnnotation(Class<T> annotationClass) {
     return Bridge.getControllerInheritedAnnotation(annotationClass);
   }
-  
-/*
-  public RenderView view() {
-    return new RenderView();
-  }
-  
-  public RenderView view(String templateName) {
-    return new RenderView(templateName);
-  }
-*/
 }

@@ -1,7 +1,7 @@
-self: play-rebel -> rebel 0.7.1
+self: play-rebel -> rebel 1.0
 
 require:
-    - play ]1.2,)
-    - org.assertj -> assertj-core 3.6.1
-    - org.mockito -> mockito-core 2.6.4
+    - play 1.5.+
+    - org.assertj -> assertj-core 3.6.2
+    - org.mockito -> mockito-core 2.7.6
     - com.google.guava -> guava 21.0
