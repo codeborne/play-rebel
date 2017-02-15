@@ -3,6 +3,7 @@ package play.rebel;
 import com.thoughtworks.xstream.XStream;
 import org.w3c.dom.Document;
 import play.Logger;
+import play.classloading.enhancers.ControllersEnhancer.ControllerSupport;
 import play.data.validation.Validation;
 import play.exceptions.UnexpectedException;
 import play.mvc.Controller;
@@ -24,7 +25,7 @@ import static java.util.Collections.emptyMap;
 /**
  * A superclass for all controllers that are intended to work without play enhancers.
  */
-public class RebelController implements PlayController {
+public class RebelController implements PlayController, ControllerSupport {
 
   protected Http.Request request = request();
 
