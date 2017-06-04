@@ -1,19 +1,19 @@
 package play.rebel;
 
-import play.CorePlugin;
 import play.Logger;
 import play.Play;
 import play.classloading.ApplicationClasses.ApplicationClass;
 import play.classloading.ApplicationClassloader;
 import play.classloading.RebelClassloader;
+import play.plugins.EnhancerPlugin;
 
 import java.util.List;
 
-public class PlayRebelAntiEnhancerPlugin extends CorePlugin {
+public class PlayRebelAntiEnhancerPlugin extends EnhancerPlugin {
   RebelClassloader rebelClassloader = new RebelClassloader();
 
   public PlayRebelAntiEnhancerPlugin() {
-    Play.pluginCollection.disablePlugin(CorePlugin.class);
+    Play.pluginCollection.disablePlugin(EnhancerPlugin.class);
     Logger.info("REBEL: Play enhancers disabled");
 
     if (enabled()) {
@@ -66,7 +66,7 @@ public class PlayRebelAntiEnhancerPlugin extends CorePlugin {
     }
   }
 
-  @Override public void enhance(ApplicationClass applicationClass) throws Exception {
+  @Override public void enhance(ApplicationClass applicationClass) {
     // skip CorePlugin's enhancement
   }
 }

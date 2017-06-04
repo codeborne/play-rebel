@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.1 (2017-06-04)
+
+* support latest change in Play framework: plugin CorePlugin was renamed to EnhancerPlugin
+
 ### 1.0 (2017-02-14)
 
 * RebelController does not extend play.mvc.Controller anymore. 
