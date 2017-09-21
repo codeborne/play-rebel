@@ -2,6 +2,7 @@
 
 ### 1.2 (2017-09-21)
 
+* rename `RenderView` to `View`: it's shorter, and it's noun (`RenderView` is still available for backward compatibility)
 * remove or deprecated many of static methods in RebelController (we recommend to use non-static methods)
 
 ### 1.1 (2017-06-04)
