@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2 (2017-09-21)
+
+* remove or deprecated many of static methods in RebelController (we recommend to use non-static methods)
+
 ### 1.1 (2017-06-04)
 
 * support latest change in Play framework: plugin CorePlugin was renamed to EnhancerPlugin
