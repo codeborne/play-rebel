@@ -5,11 +5,14 @@ import play.exceptions.UnexpectedException;
 import play.libs.MimeTypes;
 import play.mvc.Http;
 import play.mvc.Scope;
+import play.mvc.Scope.Session;
 import play.mvc.results.Result;
 import play.templates.Template;
 import play.templates.TemplateLoader;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,20 +41,44 @@ public class View extends Result {
     this.templateName = templateName;
     this.arguments.putAll(Scope.RenderArgs.current().data);
     this.arguments.putAll(arguments);
-    generateAuthenticityToken();
-  }
-
-  private void generateAuthenticityToken() {
-    // it's important to generate authenticityToken in controller, not in `apply` method
-    Scope.Session.current().getAuthenticityToken();
   }
 
   @Override
   public void apply(Http.Request request, Http.Response response) {
     try {
       renderView(response);
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       throw new UnexpectedException(e);
+    }
+    finally {
+      // we need to store session if authenticity token has been generated during rendering html
+      Session session = Session.current();
+      if (isChanged(session)) {
+        save(session);
+      }
+    }
+  }
+
+  private boolean isChanged(Session session) {
+    try {
+      Field field = Session.class.getDeclaredField("changed");
+      field.setAccessible(true);
+      return (boolean) field.get(session);
+    }
+    catch (Exception e) {
+      throw new IllegalArgumentException(e);
+    }
+  }
+
+  private void save(Session session) {
+    try {
+      Method method = Session.class.getDeclaredMethod("save");
+      method.setAccessible(true);
+      method.invoke(session);
+    }
+    catch (Exception e) {
+      throw new IllegalArgumentException(e);
     }
   }
 
@@ -61,7 +88,7 @@ public class View extends Result {
 
     Map<String, Object> templateBinding = new HashMap<>();
     templateBinding.putAll(arguments);
-    templateBinding.put("session", Scope.Session.current());
+    templateBinding.put("session", Session.current());
     templateBinding.put("request", Http.Request.current());
     templateBinding.put("flash", Scope.Flash.current());
     templateBinding.put("params", Scope.Params.current());

@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.3 (2017-10-23)
+
+* `View` constructor doesn't generate authenticity token until it's actually used in html
+
 ### 1.2 (2017-09-21)
 
 * rename `RenderView` to `View`: it's shorter, and it's noun (`RenderView` is still available for backward compatibility)
